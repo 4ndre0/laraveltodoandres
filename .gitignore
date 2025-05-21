@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+.env
+.env.example
+/public/storage
+/storage/*.key
+.idea
+.phpunit.result.cache
+.DS_Store
