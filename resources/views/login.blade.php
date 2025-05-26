@@ -59,7 +59,15 @@
         <input type="email" name="email" placeholder="Correo electrónico" required><br>
         <input type="password" name="password" placeholder="Contraseña" required><br>
         <button type="submit">Iniciar Sesión</button>
-    </form>
+     </form>
+   <div style="margin-top: 20px;">
+    ¿No estás registrado?
+    <a href="/usuarios/crear"style="color: orange; text-decoration: underline;">
+        Regístrate aquí
+    </a>
+</div>
+</body>
+</html>
     </div>
 </body>
 </html>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\UserNotification;
+
 
 class UsersController extends Controller
 {
@@ -27,15 +29,21 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        return redirect("/login");
-    }
+   public function store(Request $request)
+{
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'remember_token' => bin2hex(random_bytes(30)), // también genera 60 caracteres
+
+    ]);
+
+    // Enviar notificación
+    $user->notify(new UserNotification());
+
+    return redirect("/login");
+}
 
     /**
      * Display the specified resource.
@@ -80,18 +88,35 @@ public function update(Request $request, $id)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $user = User::find($id);
+  public function destroy(string $id)
+{
+    $user = User::find($id);
+    if ($user) {
         $user->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Usuario eliminado correctamente.');
+    } else {
+        return redirect()->back()->with('error', 'Usuario no encontrado.');
     }
-    public function search(Request $request)
+}
+
+public function search(Request $request)
+{
+    $query = $request->input('q');
+    $users = User::where('name', 'like', "%$query%")
+                ->orWhere('email', 'like', "%$query%")
+                ->get();
+
+    return view('users.usuarios', compact('users'));
+}
+public function showSearchForm()
 {
     $user = null;
-    if ($request->has('id')) {
-        $user = User::find($request->id);
-    }
+    return view('users.search', compact('user'));
+}
+
+public function searchById(Request $request)
+{
+    $user = User::find($request->id);
     return view('users.search', compact('user'));
 }
 }

@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="search-container">
-        <h2>Buscar Usuario por ID</h2>
+        <h2>Buscar Usuario</h2>
         <form action="/usuarios/buscar" method="GET">
             <!-- ...estilos y formulario como ya tienes... -->
             @if(!is_null($user))
@@ -89,7 +89,7 @@
             @endif
             <div class="form-group">
                 <label for="id">ID del usuario:</label>
-                <input type="number" id="id" name="id" required placeholder="Ejemplo: 1">
+                <input type="number" id="id" name="id" required placeholder="Escribe el ID del usuario">
             </div>
             <button type="submit">Buscar</button>
         </form>
