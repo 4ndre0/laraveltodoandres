@@ -164,7 +164,7 @@
     </div>
     @endif
 
-    <div class="user-container">
+   <div class="user-container">
         <div class="logout-btn-container">
             <a href="/logout" class="logout-btn">Cerrar sesión</a>
         </div>
@@ -190,7 +190,25 @@
                 </tr>
                 @endforeach
             </table>
+       </div> <!-- cierre de .table-responsive -->
+        <!-- Aquí va el botón -->
+        <div style="margin-top: 24px; text-align: left;">
+            <a href="/posts/create" style="
+                display: inline-block;
+                background-color:rgb(113, 151, 233);
+                color:rgb(0, 0, 0);
+                padding: 8px 18px;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: bold;
+                text-decoration: none;
+                border: 1px solidrgb(229, 213, 255);
+                transition: background 0.2s, color 0.2s;
+            ">
+                Crear y ver blogs 
+            </a>
         </div>
+</div>
     </div>
 </body>
 </html>
